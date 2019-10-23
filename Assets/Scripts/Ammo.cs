@@ -44,13 +44,23 @@ public class Ammo : MonoBehaviour
         return tagToAmmo[tag] > 0;
     }
 
-    public void ConsumeAmmo(string tag)
+    public int GetAmmo(string tag)
+    {
+        if (!tagToAmmo.ContainsKey(tag))
+        {
+            Debug.LogError("Unrecognized gun type passed:" + tag);
+        }
+        return tagToAmmo[tag];
+    }
+
+        public void ConsumeAmmo(string tag)
     {
         if (!tagToAmmo.ContainsKey(tag))
         {
             Debug.LogError("Unrecognized gun type passed: " + tag);
         }
         tagToAmmo[tag]--;
+        gameUI.SetAmmoText(tagToAmmo[tag]);
     }
 
     // Start is called before the first frame update
