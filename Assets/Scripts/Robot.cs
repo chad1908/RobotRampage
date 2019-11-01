@@ -69,6 +69,13 @@ public class Robot : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (isDead)
+        {
+            return;
+        }
+
+        health -= amount;
+
         if (health <= 0)
         {
             isDead = true;
@@ -81,6 +88,13 @@ public class Robot : MonoBehaviour
         {
             GetComponent<AudioSource>().PlayOneShot(weakHitSound);
         }
+
+        IEnumerator DestroyRobot()
+        {
+            yield return new WaitForSeconds(1.5f);
+            Destroy(gameObject);
+        }
+
     }
     IEnumerator DestroyRobot()
     {
